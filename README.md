@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# 워크북 미션&실습 모음 - vite로 안함 리액트로 하는중
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
