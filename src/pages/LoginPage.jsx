@@ -86,6 +86,7 @@ export default function LoginPage() {
   const [pwdMsg, setPwdMsg] = useState('');
 
   const [isValid, setIsValid] = useState(false);
+  const [loginSuccessMsg, setLoginSuccessMsg] = useState('');
 
   const isValidId = id => {
     const re = /^[a-z]+[a-z0-9]{5,19}$/g;
@@ -146,6 +147,7 @@ export default function LoginPage() {
       console.log(data);
       window.localStorage.setItem('token', JSON.stringify(data.token));
       navigate('/');
+      alert('로그인 성공!');
       window.location.reload();
     },
     onError: error => {
@@ -169,9 +171,9 @@ export default function LoginPage() {
         <InputBox placeholder="비밀번호" value={pwd} setValue={setPwd} type="password" />
         <ShowMsg $isError={isPwd}>{pwdMsg}</ShowMsg>
       </Part>
+      {loginSuccessMsg && <ShowMsg $isError={true}>{loginSuccessMsg}</ShowMsg>}
       <Btn type="submit" onClick={onClickBtn} value={'제출하기'} $isValid={isValid} />
     </Container>
   );
 }
-
 
