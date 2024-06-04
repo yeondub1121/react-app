@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
@@ -35,8 +35,32 @@ const Lists = styled.div`
     font-size: 15px;
   }
 `;
+
+const Button = styled.button`
+  background: none;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  &:hover {
+    font-size: 15px;
+  }
+`;
+
 export default function Navbar() {
-  const [isClicked, setIsClicked] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = JSON.parse(window.localStorage.getItem('token'));
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    window.localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    navigate('/');
+  };
 
   return (
     <Container>
@@ -44,9 +68,18 @@ export default function Navbar() {
         <NavLink to="/">UMC Movie</NavLink>
       </Logo>
       <Lists>
-      <NavLink to="/signup" isLogin={true}>
-          회원가입
-        </NavLink>
+        {isLoggedIn ? (
+          <Button onClick={handleLogout}>로그아웃</Button>
+        ) : (
+          <>
+            <NavLink to="/join" isLogin={false}>
+              회원가입
+            </NavLink>
+            <NavLink to="/login" isLogin={false}>
+              로그인
+            </NavLink>
+          </>
+        )}
         <NavLink to="/popular" isLogin={false}>
           Popular
         </NavLink>

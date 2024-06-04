@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import MovieBox from '../components/MovieBox';
+import { getMe } from '../apis/Join';
 
 const API_KEY = '1d46d55539e318d9c7df6b911b8daaba';
 const SEARCH_API_URL = 'https://api.themoviedb.org/3/search/movie';
@@ -17,14 +18,14 @@ const Container = styled.div`
 `;
 
 const Banner = styled.div`
-width: 100%;
-height: 300px;
-display: flex;
-align-items: center;
-justify-content: center;
-background-color: rgba(0, 0, 0, 0.4);
-font-size: 23px;
-font-weight: 600;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  font-size: 23px;
+  font-weight: 600;
 `;
 
 const SearchSection = styled.div`
@@ -39,7 +40,7 @@ const SearchSection = styled.div`
 const Title = styled.div`
   font-size: 25px;
   font-weight: 600;
-  margin-bottom: 10px; /* 검색바보다 조금 위로 이동시키기 위한 간격 */
+  margin-bottom: 10px; 
 `;
 
 const FindBox = styled.div`
@@ -83,6 +84,27 @@ const ResultsBox = styled.div`
 export default function MainPage() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
+  const [userName, setUserName] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const token = JSON.parse(window.localStorage.getItem('token'));
+      if (token) {
+        try {
+          const userData = await getMe(token);
+          setUserName(userData.name);
+          setIsLoggedIn(true);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
+      setLoading(false);
+    };
+
+    fetchUserData();
+  }, []);
 
   useEffect(() => {
     if (!query) {
@@ -104,7 +126,7 @@ export default function MainPage() {
   return (
     <Container>
       <Banner>
-        <div>환영합니다</div>
+        {loading ? '로딩 중…' : (isLoggedIn ? `${userName}님 환영합니다.` : '환영합니다.')}
       </Banner>
       <SearchSection>
         <Title>🎥 Find your movies!</Title>
@@ -122,7 +144,7 @@ export default function MainPage() {
       {results.length > 0 && (
         <ResultsBox>
           {results.map((item) => (
-            <Link to={`/movie/${item.id}`} key={item.id}>
+            <Link to={`/main/movie/${item.id}`} key={item.id}>
               <MovieBox
                 movieImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
                 title={item.title}
@@ -135,3 +157,4 @@ export default function MainPage() {
     </Container>
   );
 }
+

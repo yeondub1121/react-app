@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -67,9 +67,10 @@ export default function DetailPage() {
   const [movie, setMovie] = useState({});
   const star = [];
 
+
   const getMovieList = async () => {
     const response = await axios.get(
-      `https://api.themoviedb.org/3/search/movie?query=${params.title}&api_key=${API_KEY}&language=en-US&page=1`,
+      `https://api.themoviedb.org/3/search/movie?query=${params.title}&api_key=${API_KEY}&language=ko-KR&page=1`,
     );
     return response.data;
   };
@@ -90,6 +91,7 @@ export default function DetailPage() {
     }
     return [...star];
   };
+
 
   return (
     <Container

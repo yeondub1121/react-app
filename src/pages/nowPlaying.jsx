@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
-import { useQuery } from 'react-query';
+import { useQuery, useInfiniteQuery } from 'react-query';
 import { getNowPlayingList } from '../components/Movie';
 import MovieBox from '../components/MovieBox';
 import { Link } from 'react-router-dom';
+import Loading from '../components/Loading';
 
 const Container = styled.div`
   color: white;
   width: 100vw;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin-top: 65px;
 `;
 
@@ -21,17 +23,45 @@ const Box = styled.div`
   margin: 20px 0;
 `;
 
+const SpinnerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80px;
+`;
+
 export default function NowPlayingPage() {
   const [movieList, setMovieList] = useState([]);
-  const nowPlayingMovieList = useQuery('nowplayingMovie', () => getNowPlayingList(), {
-    onSuccess: data => {
-      console.log(data.results);
-      setMovieList(data.results);
-    },
-    onError: error => {
-      console.log(error);
-    },
-  });
+  const [page, setPage] = useState(1);
+
+  const fetchMovies = useCallback(async () => {
+    const data = await getNowPlayingList(page);
+    setMovieList((prev) => {
+      const newMovies = data.results.filter(
+        (newMovie) => !prev.some((movie) => movie.id === newMovie.id)
+      );
+      return [...prev, ...newMovies];
+    });
+  }, [page]);
+
+  const handleScroll = useCallback(() => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop !==
+      document.documentElement.offsetHeight
+    )
+      return;
+    setPage((prevPage) => prevPage + 1);
+  }, []);
+
+  useEffect(() => {
+    fetchMovies();
+  }, [fetchMovies]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
 
   return (
     <Container>
@@ -50,6 +80,9 @@ export default function NowPlayingPage() {
           );
         })}
       </Box>
+      <SpinnerContainer>
+        <Loading />
+      </SpinnerContainer>
     </Container>
   );
 }

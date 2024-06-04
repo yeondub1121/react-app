@@ -9,7 +9,10 @@ import TopRatedPage from '../pages/topRated';
 import UpComingPage from '../pages/upComing';
 import DetailPage from './detail';
 import ErrorPage from './error';
-import SignupPage from '../pages/signup';
+import MovieDetail from '../components/MovieDetail';
+import LoginPage from '../pages/LoginPage';
+
+
 
 export default function App() {
   return (
@@ -18,14 +21,16 @@ export default function App() {
         <Navbar />
         <Routes>
           <Route path="/" Component={MainPage} />
-          <Route path="/join" Component={JoinPage} />
+         
           <Route path="/nowplaying" Component={NowPlayingPage} />
           <Route path="/popular" Component={PopularPage} />
           <Route path="/toprated" Component={TopRatedPage} />
           <Route path="/upcoming" Component={UpComingPage} />
           <Route path="/movie/:title" Component={DetailPage} />
           <Route path="*" Component={ErrorPage} />
-          <Route path="/signup" Component={SignupPage} />
+          <Route path="/join" Component={JoinPage} />
+          <Route path="/main/movie/:id" Component={MovieDetail} />
+          <Route path="/login" Component={LoginPage} />
         </Routes>
       </div>
     </BrowserRouter>
