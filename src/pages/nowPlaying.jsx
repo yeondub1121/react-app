@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
-import { useQuery, useInfiniteQuery } from 'react-query';
+import { useQuery, useInfiniteQuery, queryCache } from 'react-query'; // useInfiniteQuery 및 queryCache 추가
 import { getNowPlayingList } from '../components/Movie';
 import MovieBox from '../components/MovieBox';
 import { Link } from 'react-router-dom';
@@ -32,36 +32,36 @@ const SpinnerContainer = styled.div`
 `;
 
 export default function NowPlayingPage() {
-  const [movieList, setMovieList] = useState([]);
-  const [page, setPage] = useState(1);
+  // useInfiniteQuery를 사용하여 데이터를 무한으로 가져오도록 설정
+  const { data, error, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery(
+    'nowPlayingMovies',
+    ({ pageParam = 1 }) => getNowPlayingList(pageParam),
+    {
+      getNextPageParam: (lastPage, allPages) => {
+        // 다음 페이지가 있는 경우 현재 페이지에 1을 더하여 반환
+        return lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined;
+      },
+    }
+  );
 
-  const fetchMovies = useCallback(async () => {
-    const data = await getNowPlayingList(page);
-    setMovieList((prev) => {
-      const newMovies = data.results.filter(
-        (newMovie) => !prev.some((movie) => movie.id === newMovie.id)
-      );
-      return [...prev, ...newMovies];
-    });
-  }, [page]);
+  const movieList = data ? data.pages.flatMap(page => page.results) : []; // 모든 페이지의 영화 데이터를 병합하여 배열로 반환
 
+  // 스크롤 이벤트 핸들러
   const handleScroll = useCallback(() => {
     if (
       window.innerHeight + document.documentElement.scrollTop !==
       document.documentElement.offsetHeight
     )
       return;
-    setPage((prevPage) => prevPage + 1);
-  }, []);
-
-  useEffect(() => {
-    fetchMovies();
-  }, [fetchMovies]);
+    fetchNextPage(); // 다음 페이지 데이터 가져오기
+  }, [fetchNextPage]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
+
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <Container>
@@ -80,9 +80,7 @@ export default function NowPlayingPage() {
           );
         })}
       </Box>
-      <SpinnerContainer>
-        <Loading />
-      </SpinnerContainer>
+      {isFetching && <SpinnerContainer><Loading /></SpinnerContainer>} {/* 로딩 중 상태 표시 */}
     </Container>
   );
 }

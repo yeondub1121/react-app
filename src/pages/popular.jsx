@@ -32,18 +32,22 @@ export default function PopularPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [movieList, setMovieList] = useState([]);
 
-  const { isLoading, isError, data, isFetching } = useQuery(['popularMovie', currentPage], () => getPopularList(currentPage), {
-    onSuccess: data => {
-      console.log('Fetched data:', data); // 받아온 데이터 확인
-      setMovieList(data.results);
-    },
-    onError: error => {
-      console.error('Error fetching popular movies:', error);
-    },
-    keepPreviousData: true, // 유지 이전 데이터가 있을 경우 로딩 중에도 사용 가능
-  });
+  const { isLoading, isError, data, isFetching } = useQuery(
+    ['popularMovie', currentPage],
+    () => getPopularList(currentPage),
+    {
+      onSuccess: data => {
+        console.log('Fetched data:', data); // 받아온 데이터 확인
+        setMovieList(data.results);
+      },
+      onError: error => {
+        console.error('Error fetching popular movies:', error);
+      },
+      keepPreviousData: true, // 유지 이전 데이터가 있을 경우 로딩 중에도 사용 가능
+    }
+  );
 
-  const onPageChange = (page) => {
+  const onPageChange = page => {
     setCurrentPage(page);
   };
 
@@ -65,7 +69,13 @@ export default function PopularPage() {
           </div>
         ))}
       </Box>
-      <Pagination currentPage={currentPage} totalPages={data.total_pages} onPageChange={onPageChange} />
+      {data && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={data.total_pages}
+          onPageChange={onPageChange}
+        />
+      )}
       {isFetching && <Loading>Loading...</Loading>} {/* 로딩 중 상태 표시 */}
     </Container>
   );
