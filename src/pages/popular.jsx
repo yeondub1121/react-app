@@ -13,6 +13,11 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 65px;
+  padding: 0 20px;
+
+  @media (max-width: 768px) {
+    margin-top: 55px;
+  }
 `;
 
 const Box = styled.div`
@@ -21,6 +26,15 @@ const Box = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 20px 0;
+
+  @media (max-width: 1260px) {
+    width: 100%;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
 `;
 
 const Loading = styled.div`

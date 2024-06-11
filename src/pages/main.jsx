@@ -15,6 +15,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 768px) {
+    margin-top: 50px;
+    padding: 0 10px;
+  }
 `;
 
 const Banner = styled.div`
@@ -26,6 +31,8 @@ const Banner = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
   font-size: 23px;
   font-weight: 600;
+
+ 
 `;
 
 const SearchSection = styled.div`
@@ -33,14 +40,20 @@ const SearchSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #1F2141;;
+  background-color: #1F2141;
   padding: 20px 0;
+
+ 
 `;
 
 const Title = styled.div`
   font-size: 25px;
   font-weight: 600;
   margin-bottom: 10px; 
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 const FindBox = styled.div`
@@ -48,6 +61,15 @@ const FindBox = styled.div`
   gap: 15px;
   align-items: center;
   margin-top: 15px;
+
+
+  @media (max-width: 768px) {
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+    justify-content: center;
+  }
+  
 `;
 
 const Input = styled.input`
@@ -56,6 +78,13 @@ const Input = styled.input`
   border: transparent;
   border-radius: 20px;
   padding: 0 15px;
+  margin-left: 55px;
+
+  @media (max-width: 768px) {
+    width: 250px;
+    height: 30px;
+    padding: 0 10px;
+  }
 `;
 
 const FindBtn = styled.button`
@@ -69,16 +98,35 @@ const FindBtn = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    width: 30px;
+    height: 30px;
+  }
+`;
+
+const ScrollableBox = styled.div`
+  width: 1260px;
+  max-width: 100%;
+  max-height: 500px;
+  overflow-y: auto;
+  margin: 20px 0;
+
+  @media (max-width: 768px) {
+    max-height: 400px;
+  }
 `;
 
 const ResultsBox = styled.div`
-  width: 1260px;
-  max-width: 100%;
+  width: 100%;
   gap: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 20px 0;
+
+  @media (max-width: 768px) {
+    gap: 15px;
+  }
 `;
 
 export default function MainPage() {
@@ -142,19 +190,22 @@ export default function MainPage() {
         </FindBox>
       </SearchSection>
       {results.length > 0 && (
-        <ResultsBox>
-          {results.map((item) => (
-            <Link to={`/main/movie/${item.id}`} key={item.id}>
-              <MovieBox
-                movieImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-                title={item.title}
-                star={item.vote_average}
-              />
-            </Link>
-          ))}
-        </ResultsBox>
+        <ScrollableBox>
+          <ResultsBox>
+            {results.map((item) => (
+              <Link to={`/main/movie/${item.id}`} key={item.id}>
+                <MovieBox
+                  movieImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                  title={item.title}
+                  star={item.vote_average}
+                />
+              </Link>
+            ))}
+          </ResultsBox>
+        </ScrollableBox>
       )}
     </Container>
   );
 }
+
 

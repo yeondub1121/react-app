@@ -14,25 +14,51 @@ const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  padding: 0 20px;
+
+  @media (max-width: 768px) {
+    height: 55px;
+    padding: 0 10px;
+  }
 `;
 
 const Logo = styled.div`
   font-size: 17px;
   margin-left: 20px;
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+    margin-left: 10px;
+  }
 `;
 
 const NavLink = styled(Link)`
   text-decoration: none;
   color: ${props => (props.isLogin ? '#F8D87C' : 'white')};
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
 `;
 
 const Lists = styled.div`
   font-size: 14px;
   display: flex;
   gap: 40px;
-  margin-right: 20px;
+  margin-right: 40px;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    gap: 20px;
+    margin-right: 10px;
+  }
+
   ${NavLink}:hover {
     font-size: 15px;
+
+    @media (max-width: 768px) {
+      font-size: 13px;
+    }
   }
 `;
 
@@ -42,8 +68,17 @@ const Button = styled.button`
   color: white;
   font-size: 14px;
   cursor: pointer;
+
   &:hover {
     font-size: 15px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+
+    &:hover {
+      font-size: 13px;
+    }
   }
 `;
 
@@ -96,3 +131,4 @@ export default function Navbar() {
     </Container>
   );
 }
+

@@ -13,6 +13,8 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 65px;
+
+  
 `;
 
 const Box = styled.div`
@@ -21,6 +23,13 @@ const Box = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 20px 0;
+
+  @media (max-width: 1260px) {
+    width: 100%;
+    justify-content: center;
+  }
+
+  
 `;
 
 const SpinnerContainer = styled.div`

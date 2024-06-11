@@ -13,12 +13,22 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding-bottom: 25px;
+
+  @media (max-width: 768px) {
+    margin-top: 60px;
+    padding: 0 20px;
+  }
 `;
 
 const Title = styled.div`
   font-size: 17px;
   font-weight: 600;
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+    margin-top: 30px;
+  }
 `;
 
 const Form = styled.form`
@@ -26,6 +36,10 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 17px;
+
+  @media (max-width: 768px) {
+    gap: 12px;
+  }
 `;
 
 const Part = styled.div`
@@ -39,6 +53,10 @@ const Part = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Input = styled.input`
@@ -50,6 +68,12 @@ const Input = styled.input`
   padding-left: 15px;
   &:focus {
     outline: none;
+  }
+
+  @media (max-width: 768px) {
+    height: 30px;
+    width: 300px;
+    font-size: 12px;
   }
 `;
 
@@ -67,6 +91,12 @@ const Btn = styled.input`
   font-weight: 600;
   margin-top: 20px;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    height: 40px;
+    width: 300px;
+    font-size: 13px;
+  }
 `;
 
 const TextBox = styled.div`
@@ -78,6 +108,12 @@ const TextBox = styled.div`
   color: white;
   font-size: 14px;
   margin-top: 25px;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+    gap: 15px;
+    text-align: center;
+  }
 `;
 
 const Text = styled.div``;
@@ -92,6 +128,10 @@ const ShowMsg = styled.div`
   width: 90%;
   font-size: 12px;
   color: ${props => (props.$isError ? 'green' : 'red')};
+
+  @media (max-width: 768px) {
+    font-size: 11px;
+  }
 `;
 
 /*JoinPage컴포넌트 속에 있으면, JoinPage컴포넌트가 렌더링될 때마다, 새로 생성되어 input내 입력이 자꾸 초기화됨*/

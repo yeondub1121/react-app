@@ -19,6 +19,11 @@ const Box = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 20px 0;
+
+  @media (max-width: 1260px) {
+    width: 100%;
+    justify-content: center;
+  }
 `;
 
 export default function TopRatedPage() {
