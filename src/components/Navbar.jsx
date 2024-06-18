@@ -83,9 +83,9 @@ const Button = styled.button`
   }
 `;
 
-const MenuIcon = styled.div`
+const MenuIcon = styled.div` 
   cursor: pointer;
-  display: none;
+  display: none; 
   width: 24px;
   height: 24px;
   flex-direction: column;
@@ -96,24 +96,25 @@ const MenuIcon = styled.div`
   @media (max-width: 1024px) {
     display: flex;
   }
+    
 
   div {
-    width: 24px;
+    width: 25px;
     height: 3px;
     background-color: white;
     border-radius: 10px;
     transition: 0.3s;
   }
 
-  &.open div:nth-child(1) {
+  &.div:line1 {
     transform: rotate(45deg) translate(5px, 5px);
   }
 
-  &.open div:nth-child(2) {
+  &.div:line2 {
     opacity: 0;
   }
 
-  &.open div:nth-child(3) {
+  &.div:line3 {
     transform: rotate(-45deg) translate(5px, -5px);
   }
 `;
