@@ -36,6 +36,7 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 17px;
+  width: 385px;
 
   @media (max-width: 768px) {
     gap: 12px;
@@ -60,8 +61,8 @@ const Part = styled.div`
 `;
 
 const Input = styled.input`
-  width: 95%;
   height: 35px;
+    width: 400px;
   font-size: 13px;
   border: transparent;
   border-radius: 18px;
@@ -71,7 +72,7 @@ const Input = styled.input`
   }
 
   @media (max-width: 768px) {
-    height: 30px;
+    height: 35px;
     width: 300px;
     font-size: 12px;
   }
@@ -103,7 +104,7 @@ const TextBox = styled.div`
   display: flex;
   ${media.desktop`
   flex-direction: row;`}
-  flex-direction: column;
+  flex-direction: row;
   gap: 20px;
   color: white;
   font-size: 14px;
