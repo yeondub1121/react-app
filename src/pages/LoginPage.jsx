@@ -35,9 +35,15 @@ const Title = styled.div`
 `;
 
 const Input = styled.input`
-  width: 95%;
+  width: 450px;
   height: 35px;
   font-size: 13px;
+  ${media.desktop`
+    width: 465px;`}
+    ${media.tablet`
+    width: 400px;`}
+    ${media.phone`
+    width: 335px;`}
   border: transparent;
   border-radius: 18px;
   padding-left: 15px;
