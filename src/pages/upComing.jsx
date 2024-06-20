@@ -44,7 +44,7 @@ export default function UpComingPage() {
         {movieList.map((item, idx) => {
           return (
             <div key={idx}>
-              <Link to={`/movie/${item.title}`}>
+              <Link to={`/movie/${item.id}`}>
                 <MovieBox
                   movieImage={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
                   title={item.title}
