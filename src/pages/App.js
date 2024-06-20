@@ -26,11 +26,11 @@ export default function App() {
           <Route path="/popular" Component={PopularPage} />
           <Route path="/toprated" Component={TopRatedPage} />
           <Route path="/upcoming" Component={UpComingPage} />
-          <Route path="/movie/:title" Component={DetailPage} />
-          <Route path="*" Component={ErrorPage} />
-          <Route path="/join" Component={JoinPage} />
-          <Route path="/main/movie/:id" Component={MovieDetail} />
-          <Route path="/login" Component={LoginPage} />
+          <Route path="/movie/:id" element={<MovieDetail />} />
+          <Route path="*" element={<ErrorPage />} />
+          <Route path="/join" element={<JoinPage />} />
+          <Route path="/main/movie/:id" element={<MovieDetail />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </div>
     </BrowserRouter>
