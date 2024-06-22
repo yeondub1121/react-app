@@ -14,6 +14,14 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 65px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 30px;
+    height: auto;
+    padding: 20px;
+    margin-top: 55px;
+  }
 `;
 
 const OpacityBox = styled.div`
@@ -26,27 +34,49 @@ const OpacityBox = styled.div`
 const MovieImg = styled.img`
   width: 300px;
   z-index: 1;
+
+   @media (max-width: 768px) {
+    width: 200px;
+  }
 `;
 
 const ExplainBox = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 1;
+
+   @media (max-width: 768px) {
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 const Title = styled.div`
   font-size: 18px;
   font-weight: 600;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 const Box = styled.div`
   display: flex;
   margin-top: 18px;
   gap: 3px;
+
+  @media (max-width: 768px) {
+    margin-top: 10px;
+    gap: 2px;
+  }
 `;
 
 const MainText = styled.div`
   font-size: 16px;
+
+   @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 const OverviewBox = styled.div`
@@ -54,11 +84,21 @@ const OverviewBox = styled.div`
   flex-direction: column;
   gap: 20px;
   margin-top: 18px;
+
+   @media (max-width: 768px) {
+    gap: 15px;
+    margin-top: 10px;
+  }
 `;
 
 const Overview = styled.div`
   font-size: 13px;
   width: 600px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    font-size: 12px;
+  }
 `;
 
 const CastBox = styled.div`
@@ -68,12 +108,22 @@ const CastBox = styled.div`
   justify-content: center;
   margin-top: 20px;
   z-index: 1;
+
+  @media (max-width: 768px) {
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 const CastMember = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 768px) {
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 const CastImg = styled.img`
@@ -81,12 +131,22 @@ const CastImg = styled.img`
   height: 150px;
   border-radius: 10px;
   object-fit: cover;
+
+  @media (max-width: 768px) {
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 const CastName = styled.div`
   margin-top: 8px;
   font-size: 14px;
   text-align: center;
+
+  @media (max-width: 768px) {
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 export default function MovieDetail() {
