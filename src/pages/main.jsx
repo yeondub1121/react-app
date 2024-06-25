@@ -174,7 +174,7 @@ export default function MainPage() {
   return (
     <Container>
       <Banner>
-        {loading ? '로딩 중…' : (isLoggedIn ? `${userName}님 환영합니다.` : '환영합니다.')}
+        {loading ? '로딩 중…' : (isLoggedIn ? `${userName}님 👋 환영합니다 👋` : '👋 환영합니다 👋')}
       </Banner>
       <SearchSection>
         <Title>🎥 Find your movies!</Title>
