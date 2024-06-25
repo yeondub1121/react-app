@@ -28,7 +28,7 @@ const Logo = styled.div`
   margin-left: 20px;
 
   @media (max-width: 768px) {
-    font-size: 15px;
+    font-size: 16px;
     margin-left: 10px;
   }
 `;
@@ -38,7 +38,8 @@ const NavLink = styled(Link)`
   color: ${(props) => (props.isLogin ? '#f8d87c' : 'white')};
 
   @media (max-width: 768px) {
-    font-size: 12px;
+    font-size: 16px;
+
   }
 `;
 
@@ -49,17 +50,7 @@ const Lists = styled.div`
   margin-right: 40px;
 
   @media (max-width: 768px) {
-    font-size: 12px;
-    gap: 20px;
-    margin-right: 10px;
-  }
-
-  ${NavLink}:hover {
-    font-size: 15px;
-
-    @media (max-width: 768px) {
-      font-size: 13px;
-    }
+    display: none;
   }
 `;
 
@@ -83,9 +74,9 @@ const Button = styled.button`
   }
 `;
 
-const MenuIcon = styled.div` 
+const MenuIcon = styled.div`
   cursor: pointer;
-  display: none; 
+  display: none;
   width: 24px;
   height: 24px;
   flex-direction: column;
@@ -93,28 +84,28 @@ const MenuIcon = styled.div`
   align-items: center;
   position: relative;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 768px) {
     display: flex;
+    margin-right: 30px;
   }
-    
 
   div {
     width: 25px;
     height: 3px;
     background-color: white;
     border-radius: 10px;
-    transition: 0.3s;
+   
   }
 
-  &.div:line1 {
+  &.open div:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
   }
 
-  &.div:line2 {
+  &.open div:nth-child(2) {
     opacity: 0;
   }
 
-  &.div:line3 {
+  &.open div:nth-child(3) {
     transform: rotate(-45deg) translate(5px, -5px);
   }
 `;
@@ -170,12 +161,12 @@ const Navbar = () => {
           <NavLink to="/upcoming" isLogin={false}>
             Upcoming
           </NavLink>
-          <MenuIcon onClick={toggleSidebar} className={isSidebarOpen ? 'open' : ''}>
-            <div></div>
-            <div></div>
-            <div></div>
-          </MenuIcon> {}
         </Lists>
+        <MenuIcon onClick={toggleSidebar} className={isSidebarOpen ? 'open' : ''}>
+          <div></div>
+          <div></div>
+          <div></div>
+        </MenuIcon>
       </Container>
       <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
     </>
