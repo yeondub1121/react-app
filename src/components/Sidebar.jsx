@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
@@ -37,9 +37,40 @@ const Logo = styled.div`
   cursor: pointer;  
 `;
 
-const CloseIcon = styled.div`
+const MenuIcon = styled.div`
   cursor: pointer;
-  font-size: 24px;
+  display: none;
+  width: 24px;
+  height: 24px;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+
+  @media (max-width: 768px) {
+    display: flex;
+    margin-right: 30px;
+  }
+
+  div {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    border-radius: 10px;
+   
+  }
+
+   &.div:line1 {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  &.div:line2 {
+    opacity: 0;
+  }
+
+  &.div:line3 {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
 `;
 
 const Menu = styled.li`
@@ -54,22 +85,43 @@ const Menu = styled.li`
 `;
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
+  const outside = useRef(null);
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleLogoClick = () => {
-    navigate('/');
-  };
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (outside.current && !outside.current.contains(e.target)) {
+        setIsOpen(false);
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [setIsOpen]);
 
   const handleMenuClick = (path) => {
     setIsOpen(false);
+    setMenuOpen(false);
     navigate(path);
   };
 
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+    setMenuOpen(!menuOpen);
+  };
   return (
     <SideBarWrap isOpen={isOpen}>
       <Header>
         <Logo onClick={() => handleMenuClick('/')}>UMC Movie</Logo>
-        <CloseIcon onClick={() => setIsOpen(false)}>×</CloseIcon>
+        <MenuIcon className={menuOpen ? 'open' : ''} onClick={toggleMenu}>
+          <div></div>
+          <div></div>
+          <div></div>
+        </MenuIcon>
       </Header>
       <ul>
         <Menu onClick={() => handleMenuClick('/join')}>회원가입</Menu>

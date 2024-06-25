@@ -97,15 +97,15 @@ const MenuIcon = styled.div`
    
   }
 
-  &.open div:nth-child(1) {
+   &.div:line1 {
     transform: rotate(45deg) translate(5px, 5px);
   }
 
-  &.open div:nth-child(2) {
+  &.div:line2 {
     opacity: 0;
   }
 
-  &.open div:nth-child(3) {
+  &.div:line3 {
     transform: rotate(-45deg) translate(5px, -5px);
   }
 `;
